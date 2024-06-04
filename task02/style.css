@@ -1,0 +1,54 @@
+body{
+    background-color: #FF7F50;
+}
+
+.head{
+    color:darkblue
+}
+
+#bglime{
+    background-color: lime;
+    font-size: 3rem;
+}
+
+.head:nth-child(2) span{
+    color:red
+}
+
+p{
+    color:white;
+}
+
+#para{
+    color:green;
+}
+
+p span{
+    color:black;
+    font-size: 2rem;
+}
+
+ul{
+    list-style: disc;
+    color:white;
+}
+
+ol{
+    list-style: decimal;
+}
+
+ul li:nth-child(1) a{
+    background-color: yellow;
+}
+
+ul li:nth-child(2) a{
+    background-color: blue;
+}
+
+ol li:nth-child(2){
+    color:blue
+}
+
+ol li:nth-child(3){
+    color:red
+}
