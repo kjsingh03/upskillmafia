@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task12</title>
+</head>
+
+<body>
+    <script>
+        let a = [100, 153, 370, 1117, 1634];
+
+        a.forEach(num => {
+            let sum = 0, arm = 0, factors = [], len = num.toString().split('').length, n = num, m, l;
+
+            for (let i = 1; i <= n; i++) {
+                if (n % i == 0) {
+                    factors.push(i)
+                }
+            }
+
+            while (n > 0) {
+                sum += n % 10
+                arm += (n % 10) ** len
+                n = Math.floor(n / 10)
+            }
+
+
+            console.log(`Number :-${num} \nSum of its digits: ${sum} \nIs it an Armstrong number? ${arm===num?'Yes':'No'} \nIs it a prime number? ${factors.length === 2 ? 'Yes' : 'No'} \nFactors: ${factors.map(fac=>fac)}`)
+            document.write(`Number :-${num} <br>Sum of its digits: ${sum} <br>Is it an Armstrong number? ${arm===num?'Yes':'No'} <br>Is it a prime number? ${factors.length === 2 ? 'Yes' : 'No'} <br>Factors: ${factors.map(fac=>fac)}<br><br>`)
+        })
+    </script>
+</body>
+
+</html>
