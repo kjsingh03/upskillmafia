@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task15</title>
+    <style>
+        *{
+            margin: 0%;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            height: 100vh;
+        }
+
+        header {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .boxes {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid #ccc;
+            transition: background-color 0.3s ease;
+        }
+        
+        .input {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            background-color: #9e9e9e;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #8d8d8d;
+        }
+    </style>
+</head>
+<body>
+    <header id="greeting">Hello</header>
+
+    <div class="boxes">
+        <div class="box">Red</div>
+        <div class="box">Blue</div>
+        <div class="box">Green</div>
+        <div class="box">Yellow</div>
+    </div>
+
+    <div class="input">
+        <input type="text" id="name" placeholder="Enter your name">
+        <button onclick="greetUser()">Greet</button>
+    </div>
+
+    <script>
+        function greetUser() {
+            document.getElementById('greeting').textContent = `Hello, ${document.getElementById('name').value}`;
+        }
+
+        document.querySelectorAll('.box').forEach(box => {
+            box.addEventListener('click', function() {
+                const color = this.textContent.toLowerCase();
+                this.style.backgroundColor = this.style.backgroundColor===color?'transparent':color;
+                this.style.color = this.style.color==='white'?'black':'white';
+            });
+        });
+    </script>
+</body>
+</html>

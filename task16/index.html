@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task16</title>
+    <style>
+        * {
+            margin: 0%;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 1rem;
+        }
+
+        span{
+            color:blueviolet
+        }
+
+        .search-box {
+            width: 20rem;
+            padding: 10px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            color: white;
+            background-color: blueviolet;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <p>Hi, username</p>
+        <span>Login</span>
+    </div>
+    <input type="text" class="search-box" placeholder="Search students by name...">
+    <button onclick="filter()">Search</button>
+    <div id="studentContainer" class="grid"></div>
+
+    <script>
+        const students = [
+            { name: 'Aarav Sharma', marks: 85, class: '10th', address: '123' },
+            { name: 'Anaya Gupta', marks: 92, class: '11th', address: '456' },
+            { name: 'Vihaan Patel', marks: 78, class: '12th', address: '78' },
+            { name: 'Diya Singh', marks: 88, class: '10th', address: '321' },
+            { name: 'Arjun Mehta', marks: 90, class: '11th', address: '654' },
+            { name: 'Ishita Reddy', marks: 82, class: '12th', address: '987' },
+            { name: 'Kavya Choudhary', marks: 95, class: '10th', address: '345' },
+            { name: 'Reyansh Desai', marks: 70, class: '11th', address: '678' },
+            { name: 'Anvi Joshi', marks: 85, class: '12th', address: '123' },
+            { name: 'Vivaan Kapoor', marks: 77, class: '10th', address: '456' },
+            { name: 'Aadhya Jain', marks: 89, class: '11th', address: '789' },
+            { name: 'Prisha Nair', marks: 93, class: '12th', address: '32' },
+        ];
+
+        function render(studentList) {
+            const studentContainer = document.getElementById('studentContainer');
+            studentContainer.innerHTML = '';
+            studentList.map(student => {
+                studentContainer.innerHTML += `
+                    <div class="card">
+                        <p>Student Name:<b> ${student.name}</b></p>
+                        <p>Marks:<b> ${student.marks}</b></p>
+                        <p>Class:<b> ${student.class}</b></p>
+                        <p>Address:<b> ${student.address}</b></p>
+                    </div>
+                `;
+            });
+        }
+
+        function filter() {
+            const searchText = document.querySelector('.search-box').value.toLowerCase();
+            const filteredStudents = students.filter(student => student.name.toLowerCase().includes(searchText));
+            render(filteredStudents);
+        }
+
+        render(students);
+    </script>
+</body>
+
+</html>

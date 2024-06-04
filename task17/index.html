@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task17</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">Logo</div>
+        <div class="subnav">
+            <div class="ham">☰</div>
+            <div class="menu">
+                <a href="#">Home</a>
+                <a href="#">Services</a>
+                <a href="#">About Us</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="menu2">
+                <div class="user">Username</div>
+                <div class="logout">Logout</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main">
+        <div class="left">
+            <h3>Added Items</h3>
+            <div class="head">
+                <p id="sno">S.No</p>
+                <p id="name">Service Name</p>
+                <p id="price">Price</p>
+            </div>
+            <div class="no-items" id="no-items">
+                <h1>&#9432;</h1>
+                <h4>No Items Added</h4>
+                <p>Add items to the cart from the services bar</p>
+            </div>
+            <div class="items" id="items">
+            </div>
+            <div class="amount">
+                <h4>Total amount</h4>
+                <p id="total">&#8377;0</p>
+            </div>
+            <h4>Book Now</h4>
+            <div class="form">
+                <div class="fullname">
+                    <label for="fullname" class="">Name</label>
+                    <input type="text" id="fullname" class="" placeholder="John Doe">
+                </div>
+                <div class="">
+                    <label for="email">Email Id</label>
+                    <input type="text" id="email" placeholder="mailid@gmail.com">
+                </div>
+                <div class="">
+                    <label for="email">Phone Number</label>
+                    <input type="text" id="password" placeholder="0000000000">
+                </div>
+                <button onclick="bookNow()">Book now</button>
+                <p class="info">&#9432; Add the items to the cart and book now</p>
+            </div>
+        </div>
+        <div class="right">
+            <h1>Browse Our Services</h1>
+            <p>Click on the add to cart button to add the services to your cart or skip</p>
+            <div class="card" id="card">
+            </div>
+            <p class="info">&#9432; Add the items to the cart and book now</p>
+        </div>
+    </div>
+
+    <script>
+        const services = [
+            { id: 1, name: 'Washing', price: 5000, image: 'https://aftercareco.com/blog/wp-content/uploads/2023/05/washing-laundry.jpg' },
+            { id: 2, name: 'Wash and fold', price: 3000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF1wDvDY0bHQCqYXUDRca61D-3C3KveVqqkA&s' },
+            { id: 3, name: 'Ironing', price: 2000, image: 'https://www.elitecleaners.in/images/laundry3.jpg' },
+            { id: 4, name: 'Dry cleaning', price: 4000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbeQahjZjRV3bQCywzNIiatU2eRnWYhvvOYg&s' },
+        ];
+
+        const cart = [];
+
+        function renderService(id) {
+            const service = services.find(ser => ser.id === id)
+
+            document.getElementById('card').innerHTML = `
+                    <div class="card-img">
+                        <img src="${service.image}" alt="">
+                    </div>
+                    <div class="card-body">
+                        <p>${service.name}</p>
+                        <span>&#8377;${service.price}</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="skip" onclick="skipItem(${service.id})">Skip Item <i class="fa-solid fa-circle-minus"></i> </div>
+                        <div id="add" onclick="addItem(${service.id})">Add Item <i class="fa-solid fa-circle-plus"></i> </div>
+                    </div>`
+        }
+
+        function addItem(serviceId) {
+            renderService(serviceId < services.length ? serviceId + 1 : 1)
+
+            cart.push(services.find(s => s.id === serviceId));
+
+            updateCart();
+        }
+
+        function skipItem(serviceId) {
+            renderService(serviceId < services.length ? serviceId + 1 : 1)
+        }
+
+        function bookNow() {
+
+            const fullName = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (cart.length > 0) {
+                if (fullName && email && password) {
+                    alert(`Booking successful for ${fullName}`);
+                    document.getElementById('items').innerHTML=''
+                    document.getElementById('items').style.display='none'
+                    document.getElementById('no-items').style.display='flex'
+                    cart=[]
+                }
+                else {
+                    alert('Please fill out all fields');
+                }
+            }
+            else {
+                document.querySelector('.form .info').style.display = 'block';
+                setTimeout(() => document.querySelector('.form .info').style.display = 'none', 1000)
+            }
+        }
+
+        function updateCart() {
+            const items = document.getElementById('items');
+            const noItems = document.getElementById('no-items');
+            const totalAmount = document.getElementById('total');
+
+            items.innerHTML = '';
+
+            let total = 0;
+
+            if (cart.length === 0) {
+                noItems.style.display = 'flex'
+                items.style.display = 'none'
+            }
+            else {
+                noItems.style.display = 'none'
+                items.style.display = 'flex'
+
+                cart.forEach((item, index) => {
+                    items.innerHTML += `
+                    <div class="item">
+                        <p id="sno">${index + 1}</p>
+                        <p id="name">${item.name}</p>
+                        <p id="price">${item.price}</p>
+                    </div>
+                        `;
+                    total += item.price;
+                });
+
+                totalAmount.innerHTML = `&#8377;${total}`;
+            }
+
+        }
+
+        renderService(1);
+        updateCart()
+    </script>
+</body>
+
+</html>
